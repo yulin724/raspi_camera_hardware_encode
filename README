@@ -1,0 +1,52 @@
+RaspberryPi WebCamera Hardware Encode Sample
+
+- UVC Camera
+- Stole v4l2uvc.h and v4l2uvc.c code from uvccapture project
+- RaspberryPi's Hardware Encode support color format OMX_COLOR_FormatYUV420PackedPlanar
+- Encode each raw frame with h264
+
+1. Detect UVC Web Camera
+sudo apt-get install v4l-utils
+v4l2-ctl  --all
+
+root@raspberrypi:/opt/vc/src/hello_pi/raspi_camera_hardware_encode# v4l2-ctl  --all
+Driver Info (not using libv4l2):
+        Driver name   : uvcvideo
+        Card type     : FULL HD 1080P Webcam
+        Bus info      : usb-bcm2708_usb-1.2
+        Driver version: 3.6.11
+        Capabilities  : 0x04000001
+                Video Capture
+                Streaming
+Format Video Capture:
+        Width/Height  : 320/240
+        Pixel Format  : 'YUYV'
+        Field         : None
+        Bytes per Line: 640
+        Size Image    : 153600
+        Colorspace    : SRGB
+Crop Capability Video Capture:
+        Bounds      : Left 0, Top 0, Width 320, Height 240
+        Default     : Left 0, Top 0, Width 320, Height 240
+        Pixel Aspect: 1/1
+Video input : 0 (Camera 1: ok)
+Streaming Parameters Video Capture:
+        Capabilities     : timeperframe
+        Frames per second: 30.000 (30/1)
+        Read buffers     : 0
+
+My UVC camera supports "320x240" YUYV format.
+
+2. get source code from github, compile it
+On your raspberrypi, enter the following directory:
+cd /opt/vc/src/hello_pi
+
+git clone https://github.com/yulin724/raspi_camera_hardware_encode.git
+
+make
+
+3. run it
+./hello_encode.bin output.h264
+
+4. play video file in vlc
+You can download VLC player on Windows or Linux, then play the output.h264 file in it.
